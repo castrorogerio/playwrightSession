@@ -31,4 +31,8 @@ test.describe("Test", () => {
         await page.goto("http://uitestingplayground.com/shadowdom");
         await page.locator("#shadow-host > button#my-btn").click();
     });
+
+    test.afterEach(async ({ page }) => {
+        await page.close();
+    });
 });

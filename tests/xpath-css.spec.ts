@@ -13,4 +13,8 @@ test.describe ( 'XPath and CSS', () => {
     test("use css", async ({ page }) => {
         await expect(page.locator('h5.card-title:has-text("Array") + p + a')).toHaveText('Get Started');
     });
+
+    test.afterEach(async ({ page }) => {
+        await page.close();
+    });
 });
