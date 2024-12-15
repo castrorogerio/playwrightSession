@@ -8,10 +8,26 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "devDependencies": {
     "@playwright/test": "^1.49.0",
     "@types/node": "^22.9.3",
     "@faker-js/faker": "^9.2.0"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "playwright": "^1.49.1",
+    "playwright-core": "^1.49.1",
+    "undici-types": "^6.20.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/castrorogerio/playwrightSession.git"
+  },
+  "bugs": {
+    "url": "https://github.com/castrorogerio/playwrightSession/issues"
+  },
+  "homepage": "https://github.com/castrorogerio/playwrightSession#readme",
+  "description": ""
 }
