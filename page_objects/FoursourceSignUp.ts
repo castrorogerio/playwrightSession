@@ -49,7 +49,7 @@ export class FoursourceSignUpPage {
 
     constructor(page: Page) {
         this.page = page;
-        this.acceptTermsLocator = this.page.locator('//input[@type="checkbox"]');
+        this.acceptTermsLocator = this.page.locator('//mat-checkbox[@formcontrolname="terms"]');
         this.joinButtonLocator = this.page.locator('//button[@type="submit"]');
 
         //Simple and Clean
@@ -83,7 +83,8 @@ export class FoursourceSignUpPage {
         await this.phoneAreaCodeLocator.getByRole("option").click();
 
         await this.companyNameLocator.fill(filledData.companyName);
-        let companyNameSelector = this.page.locator('//div[@id="mat-autocomplete-0"]/descendant::span[@class="mat-option-text"]/..');
+        //let companyNameSelector = this.page.locator('//div[@id="mat-autocomplete-0"]/descendant::span[@class="mat-option-text"]/..');
+        let companyNameSelector = await this.page.locator('mat-option:has-text("' + filledData.companyName + '")');
         await companyNameSelector.click();
 
         /*
@@ -94,18 +95,32 @@ export class FoursourceSignUpPage {
         
         await this.jobTitleLocator.fill(filledData.jobTitle);
 
+        //await page.locator('mat-select').click();
+        //await page.locator(`mat-option:has-text("${desiredValue}")`).click();
+
         await this.areaWorkLocator.click();
-        let areaWorkSelector = await this.page.locator('//div[@id="mat-select-4-panel"]/mat-option[@id="mat-option-2"]')
-        await areaWorkSelector.click;
+        let areaWorkSelector = await this.page.locator('mat-option:has-text("' + filledData.areaWork + '")');
+        await areaWorkSelector.click();
         await this.page.mouse.click(100,0);
 
-        await this.acceptTermsLocator.check();
+        await this.acceptTermsLocator.click();
         await this.joinButtonLocator.click();
 
-        //Verify Email
-        let messageLocator = await this.page.locator('//strong');
-        expect(messageLocator).toHaveText(filledData.email);
     }
 
+    async subscribe() {
 
+        await this.fillForm();
+        const captchaPresent = (await this.page.$(".g-recaptcha")) == null;
+        if(captchaPresent) {
+            this.page.reload(); 
+            await this.subscribe();
+        }
+        else {
+            //Verify Email
+            let messageLocator = await this.page.locator('//strong');
+            expect(messageLocator).toHaveText(filledData.email);
+        };
+
+    }
 }

@@ -29,7 +29,7 @@ test.describe('FourSource Challenge',() => {
 
         //Fill Form & validate
         signupPage = new FoursourceSignUpPage(page);
-        await signupPage.fillForm();
+        await signupPage.subscribe();
     });
 
     test.afterEach(async ({}) => {
