@@ -6,7 +6,7 @@ import { Platform } from "../pages/platform";
 const userTest = {
     name: faker.person.firstName(),
     lastName: faker.person.lastName(),
-    email: faker.internet.email(),
+    email: faker.internet.email().toLowerCase(),
     phoneNum: randomInt(100000000, 999999999 ).toString(),
     company: faker.company.name(),
     job: faker.person.jobTitle(),
@@ -24,7 +24,7 @@ test.describe('Challenge number 1', () => {
         await page.goto(url);
     })
 
-    test('', async ({ }) => {
+    test('Challenge number 1', async ({ }) => {
         await platformPage.pricingPage();
         await page.waitForTimeout(2000);
 
