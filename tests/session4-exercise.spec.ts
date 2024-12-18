@@ -1,4 +1,6 @@
-import { expect, test } from '@playwright/test';
+import { BrowserContext, expect, test, Page } from '@playwright/test';
+import { FirstPage } from '../page-objects/session4-exercise-firstPage';
+import { MainPage } from '../page-objects/session4-exercise-mainPage';
 
 const userData = {
     firstName: "Rogerio",
@@ -14,37 +16,36 @@ async function tomorrowDate() {
     return tomorrow.toLocaleDateString();
 }
 
-
 test.describe('Test', () => {
+    let context: BrowserContext;
+    let alhos: Page;
+    let firstPage: FirstPage;
+    let mainPage: MainPage;
 
-    test.beforeEach(async ({page}) => {
-        await page.goto("https://playwrightrogerio.w3spaces.com/");
-        await page.locator("#continue-btn").click();
+    test.beforeEach(async ({browser}) => {
+        context = await browser.newContext();
+        alhos = await context.newPage();
+        firstPage = new FirstPage(alhos);
+        mainPage = new MainPage(alhos);
+        await firstPage.goto();
+        await firstPage.continueButton.click();
     });
 
-    test("exercicio", async ({page}) => {
-        const iframe1 = page.frameLocator("#iframe1");
-        await iframe1.locator("[data-testid='firstName'] + br + input").fill(userData.firstName);
-        //await iframe1.locator('//label[@data-testid="firstName"]/following-sibling::input[1]').fill("Rogerio");
-        await iframe1.locator("[data-testid='lastName'] + br + input").fill(userData.lastName);
-        //await iframe1.locator('//label[@data-testid="lastName"]/following-sibling::input').fill("Castro");
+    test("exercicio", async () => {
+        await mainPage.validateUrl(alhos.url());
+        await mainPage.iframe1FirstName.fill(userData.firstName);
+        await mainPage.iframe1LastName.fill(userData.lastName);
 
-        const iframe2 = page.frameLocator("#iframe2");
-        await iframe2.getByPlaceholder("PasswordHere").fill(userData.password);
-        await iframe2.locator('//label[@id="dob"]/following-sibling::input[1]').fill(userData.dob);
-        //await iframe2.locator('#dob + br + input');
-        await iframe2.getByTestId("tomorrowDate").fill(await tomorrowDate());
+        await mainPage.iframe2Password.fill(userData.password);
+        await mainPage.iframe2Dob.fill(userData.dob);
+        await mainPage.iframe2TomorrowDate.fill(await tomorrowDate());
+        await mainPage.iframe3SubmitButton.click();
 
-        const iframe3 = page.frameLocator("#iframe3");
-        await iframe3.getByRole("button", {name:"Submit"}).click();
-
-        await expect(page.locator("#success")).toBeVisible();
-        await expect(page.locator("#success")).toHaveText("That's all for Today! :D");
-        await expect(page.locator("#success")).toHaveCSS("color", "rgb(0, 128, 0)");
+        await mainPage.validateSuccessMessage("That's all for Today! :D", "rgb(0, 128, 0)");
     });
 
-    test.afterEach(async ({page}) => {
-        await page.close();
+    test.afterEach(async () => {
+        await context.close();
     });
 
 });
