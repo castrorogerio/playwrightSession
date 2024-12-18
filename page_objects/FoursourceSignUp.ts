@@ -113,7 +113,7 @@ export class FoursourceSignUpPage {
         await this.fillForm();
         const captchaPresent = (await this.page.$(".g-recaptcha")) == null;
         if(captchaPresent) {
-            this.page.reload(); 
+            this.page.reload();
             await this.subscribe();
         }
         else {

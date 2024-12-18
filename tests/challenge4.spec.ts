@@ -13,22 +13,22 @@ test.describe('FourSource Challenge',() => {
     test.beforeEach(async ({browser}) => {
         context = await browser.newContext();
         page = await context.newPage();
+        mainPage = new FoursourceMainPage(page);
+        pricingPage = new FoursourcePricingPage(page);
+        signupPage = new FoursourceSignUpPage(page);
     });
 
     test('Pricing', async ({}) => {
 
         //Open Pricing Page
-        mainPage = new FoursourceMainPage(page);
         await mainPage.goto();
         await mainPage.openPricing();
 
         //Toggle Buyer Mode
-        pricingPage = new FoursourcePricingPage(page);
         await pricingPage.toggleBuyers();
         await pricingPage.clickFreeJoin();
 
         //Fill Form & validate
-        signupPage = new FoursourceSignUpPage(page);
         await signupPage.subscribe();
     });
 
