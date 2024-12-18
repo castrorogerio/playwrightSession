@@ -88,4 +88,21 @@ export class FormPage {
   async clickJoinUs() {
     await this.joinUs.click();
   }
+
+  async fillForm(testUser: any) {
+    //fill the form and submit
+    await this.firstName.fill(testUser.firstName);
+    await this.lastname.fill(testUser.lastName);
+    await this.mail.fill(testUser.email);
+    await this.selectCountryAndTerritory(testUser.country);
+    await this.selectPhoneAreaCode();
+    await this.phoneNumber.fill(testUser.phoneNumber);
+    await this.companyName.fill(testUser.companyName);
+    await this.selectCompanyType();
+    await this.selectProducts();
+    await this.jobTitle.fill(testUser.jobTitle);
+    await this.selectAreasOfWork();
+    await this.selectTermsAndConditions();
+    await this.clickJoinUs();
+};
 }

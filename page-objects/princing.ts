@@ -3,11 +3,11 @@ import { Locator, Page } from '@playwright/test';
 export class PricingPage {
 private readonly url : string;
 readonly titlePricing :Locator;
-readonly toggleBuyer :Locator;
+private readonly toggleBuyer :Locator;
 readonly freePlan :Locator;
 readonly explorerPlan :Locator;
 readonly businessPlan :Locator;
-readonly joinNow :Locator;
+private readonly joinNow :Locator;
 
 constructor(private page: Page) {
 
@@ -17,23 +17,25 @@ constructor(private page: Page) {
     this.freePlan = page.getByRole('heading', {name: 'Free'}); 
     this.explorerPlan = page.getByRole('heading', {name: 'Explorer'});
     this.businessPlan = page.getByRole('heading', {name: 'Business'});
-    this.joinNow = page.getByRole("banner").getByRole('link', {name: 'Join now'});
+    this.joinNow = page.locator("h3:has-text('Free') + p + div + a");
 }
+
+    async goto() {
+        await this.page.goto(this.url);
+    };
+
+    async clickForBuyers() {
+        await this.page.waitForTimeout(1000);
+        await this.toggleBuyer.click();
+    };
+
+    async selectForSuppliers() {
+        await this.toggleBuyer.getAttribute("aria-selected=true");
+    };
+
+    async clickJoinNow() {
+        await this.joinNow.click();
+    };
     
-async goto() {
-    await this.page.goto(this.url);
-};
-
-async clickForBuyers() {
-    await this.toggleBuyer.click();   
-};
-
-async selectForSuppliers() {
-    await this.toggleBuyer.getAttribute("aria-selected=true");
-};
-
-async clickJoinNow() {
-    await this.joinNow.click();
-};
 }
 

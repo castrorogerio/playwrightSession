@@ -45,9 +45,9 @@ test.describe("Challenge", () => {
     await pricingPage.clickForBuyers();
 
     //confirm that For Buyers is selected
-    //expect(pricingPage.selectForSuppliers()).toBeTruthy();
+    expect(pricingPage.selectForSuppliers()).toBeTruthy();
 
-    //confirm that the Free, Explorer, and Business plans are visible 
+    //confirm that the Free, Explorer, and Business plans are visible
     await expect(pricingPage.freePlan).toBeVisible();
     await expect(pricingPage.explorerPlan).toBeVisible();
     await expect(pricingPage.businessPlan).toBeVisible();
@@ -56,24 +56,11 @@ test.describe("Challenge", () => {
     await pricingPage.clickJoinNow();
     await expect(formPage.titleForm).toBeVisible();
 
-    //fill the form and submit
-    await formPage.firstName.fill(testUser.firstName);
-    await formPage.lastname.fill(testUser.lastName);
-    await formPage.mail.fill(testUser.email);
-    await formPage.selectCountryAndTerritory(testUser.country);
-    await formPage.selectPhoneAreaCode();
-    await formPage.phoneNumber.fill(testUser.phoneNumber);
-    await formPage.companyName.fill(testUser.companyName);
-    await formPage.selectCompanyType();
-    await formPage.selectProducts(); 
-    await formPage.jobTitle.fill(testUser.jobTitle);
-    await formPage.selectAreasOfWork();
-    await formPage.selectTermsAndConditions();
-    await formPage.clickJoinUs();
+    await formPage.fillForm(testUser);
 
     //confirm that the email has been submitted correctly
     await expect(platformPage.title).toBeVisible();
-    await expect(platformPage.verifyEmail(testUser.email)).toBeTruthy();
+    await platformPage.validateEmail(testUser.email);
   });
 
   test.afterEach(async () => {
