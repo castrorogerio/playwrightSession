@@ -22,6 +22,7 @@ export class Platform  {
     readonly joinUs: Locator;
 
     readonly checker: Locator
+    readonly batatas: Locator;
 
     constructor(private page: Page) {
         this.pricingLink = page.getByRole('link', {name: 'Pricing'});
@@ -36,13 +37,15 @@ export class Platform  {
         this.phoneNumber = page.locator('//*[@id="mat-input-3"]');
         this.companyName = page.locator('//*[@id="mat-input-4"]');
         this.companyType = page.locator('//*[@data-qa-id="company-sector-input"]');
-        this.products = page.locator('//*[@id="mat-select-2"]');  
+        this.products = page.locator('//*[@id="mat-select-2"]');
         this.jobTitle = page.getByRole("textbox", { name: "Job Title" });
         this.areasOfWork = page.locator('//*[@data-qa-id="areas-of-work-input"]');
         this.checkboxTermsandConditions = page.locator('//*[@data-qa-id="terms-checkbox"]');
         this.joinUs = page.locator('//*[@data-qa-id="submit-button"]');
 
         this.checker = page.locator('//*[@data-qa-id="signup-verify-description1"]');
+
+        this.batatas = page.locator('button.Mui-selected', { hasText: 'For Buyers' });
     }
 
     async pricingPage() {
@@ -57,10 +60,7 @@ export class Platform  {
 
     async buyers() {
         await this.forBuyers.click();
-
-        const button = await this.page.locator('button.Mui-selected', { hasText: 'For Buyers' });
-        const ariaSelected = await button.getAttribute('aria-selected');
-        expect(ariaSelected).toBe('true');
+        expect(this.batatas).toHaveAttribute("aria-selected", "true")
     }
 
     async gotoForm() {

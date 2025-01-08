@@ -1,5 +1,5 @@
-import { faker, ur } from "@faker-js/faker";
-import {test, expect, Page} from "@playwright/test";
+import { faker } from "@faker-js/faker";
+import {test, Page} from "@playwright/test";
 import { randomInt } from "crypto";
 import { Platform } from "../pages/platform";
 
@@ -26,16 +26,16 @@ test.describe('Challenge number 1', () => {
 
     test('Challenge number 1', async ({ }) => {
         await platformPage.pricingPage();
-        await page.waitForTimeout(2000);
+        await page.waitForTimeout(1000);
 
         await platformPage.buyers();
-        await page.waitForTimeout(1000);
+        //await page.waitForTimeout(1000);
 
         await platformPage.gotoForm();
-        await page.waitForTimeout(1000);
+        //await page.waitForTimeout(1000);
 
         await platformPage.fillForm(userTest.name, userTest.lastName, userTest.email, userTest.phoneNum, userTest.company, userTest.job);
-        await page.waitForTimeout(1500);
+        //await page.waitForTimeout(1500);
 
         await platformPage.checkJoin(userTest.email);
     });
