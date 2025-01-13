@@ -1,12 +1,13 @@
-import test, { BrowserContext, Page } from "@playwright/test";
+import { test, BrowserContext, Page } from "@playwright/test";
 import { FourSourcePage } from "../page-objects/four-souce-page";
 import { PricingPage } from "../page-objects/pricing-page";
 import { SignUpPage } from "../page-objects/signUpForm";
+import { faker } from "@faker-js/faker";
 
 const formData = {
     firstName: "Sara",
     lastName: "Batista",
-    email: "teste@teste.com",
+    email: faker.internet.email().toLowerCase(),
     phoneNumber: "916739918",
     companyName: "teste",
     jobTitle: "QA"
