@@ -22,16 +22,17 @@ test.describe ('Challenge Interview', () => {
     test.beforeEach(async ({browser}) => {
     context = await browser.newContext();
     page = await context.newPage();
-    fourSoucePage = new FourSourcePage (page);  
+    fourSoucePage = new FourSourcePage (page);
     pricingPage = new PricingPage(page);
     signupPage = new SignUpPage(page);
-    
+
     await fourSoucePage.goto();
     await fourSoucePage.pricingRedirectLink.click();
     await pricingPage.validateURL(page.url());
     })
 
     test ("Submit the form and email validation", async ({}) => {
+        await page.waitForTimeout(2000);
         await pricingPage.forBuyersToggle.click();
         await pricingPage.freeJoinButton.click();
 
