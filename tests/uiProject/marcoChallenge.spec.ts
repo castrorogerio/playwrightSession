@@ -13,4 +13,9 @@ test.describe('Last Challenge', () => {
 
         await blipPage.goToPage();
     })
+
+    test("Challenge Proposed", async () => {
+        await blipPage.goToJobs();
+        
+    });
 });
