@@ -16,6 +16,7 @@ test.describe('Last Challenge', () => {
 
     test("Challenge Proposed", async () => {
         await blipPage.goToJobs();
-        
+        // First option: Text to search, Second option: Country between Portugal or United Kingdom
+        await blipPage.search('QA', 'Portugal');
     });
 });
