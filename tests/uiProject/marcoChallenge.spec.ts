@@ -19,4 +19,6 @@ test.describe('Last Challenge', () => {
         // First option: Text to search, Second option: Country between Portugal or United Kingdom
         await blipPage.search('QA', 'Portugal');
     });
+
+    
 });
