@@ -1,4 +1,4 @@
-import { test, BrowserContext, Page } from "@playwright/test";
+import test, { BrowserContext, Page } from "@playwright/test";
 import { FourSourcePage } from "../page-objects/four-souce-page";
 import { PricingPage } from "../page-objects/pricing-page";
 import { SignUpPage } from "../page-objects/signUpForm";
