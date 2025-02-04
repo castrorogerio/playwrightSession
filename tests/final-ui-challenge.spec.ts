@@ -40,11 +40,9 @@ test.describe('Final Challenge', () => {
         await jobsPage.assertNoJobListings();
         await jobsPage.removeCountry.click();
         await jobsPage.selectCountry("Portugal");
-        await page.waitForTimeout(2000);
         await jobsPage.applyFiltersButton.click();
         await jobsPage.qaEngineerSave.click();
         await jobsPage.savedJobs.click();
-        await page.waitForTimeout(2000);
 
         await savedJobsPage.validateURL(page.url());
         await savedJobsPage.assertSavedJob();
