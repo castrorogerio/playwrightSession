@@ -13,7 +13,7 @@ test.describe('Mocking an API call', () => {
     test('mocks a fruit ', async () => {
         await page.route('*/**/api/v1/fruits', async route => {
             const json = [{ name: 1, id: '1' }];
-            await route.fulfill({status: 404, body: JSON.stringify(json)});
+            await route.fulfill({status: 200, body: JSON.stringify(json)});
         });
 
         await page.goto('https://demo.playwright.dev/api-mocking');

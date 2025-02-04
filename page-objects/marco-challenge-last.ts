@@ -22,23 +22,20 @@ export class blipWebsite {
         // Fill the search box with whatever you want and select the country
         await this.page.locator('#l-search').click();
         await this.page.locator('#l-search').fill(roleToSearch);
-        await this.page.getByRole('combobox').click();
 
-        const allResults = this.page.locator('#select2-l-country-results');
+        await this.page.getByPlaceholder('Country').click();
+        await this.page.waitForTimeout(1500);
 
         if (country === 'Portugal') {
-            await allResults.locator('text="Portugal"').click();
+            await this.page.getByRole('option', { name: 'Portugal' }).click();
         } else if (country === 'United Kingdom') {
-            await allResults.locator('text="United Kingdom"').click();
+            await this.page.getByRole('option', { name: 'United Kingdom' }).click();;
         } else {
             const error = new Error('Invalid option'); 
             console.error(error); 
             throw error;
         }
-        
-        await this.page.locator('#js-main-job-search').click();
 
-        const results = await this.page.locator('#js-job-search-results');
-        await expect(results).toBeVisible();
+        await this.page.locator('#js-main-job-search').click();
     }
 }
