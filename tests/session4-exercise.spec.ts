@@ -23,7 +23,12 @@ test.describe('Test', () => {
     let mainPage: MainPage;
 
     test.beforeEach(async ({browser}) => {
-        context = await browser.newContext();
+        context = await browser.newContext({
+            recordVideo: {
+                dir: 'videos/',
+                size: { width: 640, height: 480 },
+              }
+        });
         alhos = await context.newPage();
         firstPage = new FirstPage(alhos);
         mainPage = new MainPage(alhos);
